@@ -95,17 +95,10 @@ function gissaTaletFormular()
     output.setAttribute("name","resultat");
     output.setAttribute("disabled","true");
 
-    // const submit = document.createElement("button");
-    // submit.setAttribute("type","button");
-    // submit.setAttribute("class","button");
-    // submit.setAttribute("onclick","gissaTaletFunc();")
-    // submit.textContent="Gissa!";
-    
     const lb = document.createElement("br");
     lb.textContent = "<br>";
 
     form.appendChild(input);
-    // form.appendChild(submit);
     form.appendChild(lb);
     form.appendChild(output);
     wrapper.appendChild(form);
