@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <title>Testish</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <style>
+      #wrapper {
+        margin-top: 1rem;
+      }
+      .textField {
+        width: 30rem;
+        height: 2rem;
+        font-size: 1.8rem;
+      }
+      .button {
+        height: 2.3rem;
+        width: 3rem;
+      }
+      #gissaFormular {
+        display: flex;
+        flex-wrap: wrap;
+        width: 34rem;
+      }
+      #mainContainer {
+        display: flex;
+        width: 80%;
+        border: 1px solid black;
+      }
+      #multiplicationContainer {
+        flex-basis: 7%;
+        padding: 0 1.5em 0;
+        border: 1px solid black;
+      }
+    </style>
+    <script src="script.js" defer></script>
+  </head>
+  <body onload="createDiv();">
+    <input
+      type="button"
+      id="Multiplikation"
+      value="Multiplikationstabellen"
+      onclick="multiplikation();"
+    />
+    <input
+      type="button"
+      id="gissaTal"
+      value="Gissa talet - Prompt"
+      onclick="gissaTaletPrompt();"
+    />
+    <input
+      type="button"
+      id="gissaTal"
+      value="Gissa talet - Formulär"
+      onclick="gissaTaletFormular();"
+    />
+    <input
+      type="button"
+      id="rovarSpraketPrompt"
+      value="Rövarspråket - Prompt"
+      onclick="rovarSpraketPrompt();"
+    />
+    <input
+      type="button"
+      id="rovarSpraketFormular"
+      value="Rövarspråket - Formulär"
+      onclick="rovarSpraket();"
+    />
+  </body>
+</html>
