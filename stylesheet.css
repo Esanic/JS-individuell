@@ -25,3 +25,18 @@
   padding: 0 1.5em 0;
   border: 1px solid black;
 }
+.out {
+  color: Red;
+}
+
+#intForm {
+  padding: 0 0 0 40px;
+}
+
+#reseDatum {
+  display: flex;
+}
+
+.label {
+  margin: 0;
+}
