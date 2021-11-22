@@ -266,7 +266,7 @@ function intelligentForm()
     const checkButton = document.createElement("button");
     checkButton.setAttribute("type","submit");
     checkButton.setAttribute("id","testButton");
-    checkButton.setAttribute("disabled","true");
+    // checkButton.setAttribute("disabled","true");
     checkButton.textContent = "Skicka in!";
 
     const lb = document.createElement("br");
@@ -281,7 +281,7 @@ function intelligentForm()
     hemreseLabel.textContent = "Hemresedatum"
 
 
-    //containers
+    //Containers
     const reseDatum = document.createElement("div");
     reseDatum.setAttribute("id","reseDatum");
 
@@ -292,7 +292,7 @@ function intelligentForm()
     hemreseContainer.setAttribute("id", "hemreseContainer");
 
     
-    //Error meddelanden
+    //Error-check meddelanden
     const errorMessages = document.createElement("ul");
     errorMessages.setAttribute("id","errorMessages");
 
@@ -348,135 +348,63 @@ function intelligentForm()
     errorMessages.appendChild(errorPost);
     errorMessages.appendChild(errorArea);
     errorMessages.appendChild(errorDate);
-    let count = 0;
+
     
-    function testInfo()
+    function testInput(nameOfId, regEx, nameOfErrId)
     {
-        
-        const nameRe = /[a-zA-Z]+\s[a-zA-Z]+/;
-        document.getElementById("fullName").addEventListener("change", function(event)
+            document.getElementById(nameOfId).addEventListener("change",function(event)
         {
-            const check = nameRe.exec(event.target.value);
+            const check = regEx.test(event.target.value);
             if (!check)
             {
-                document.getElementById("errName").style.color = "red";
-                
+                document.getElementById(nameOfErrId).style.color = "red";
             }
-            else
+            if (check)
             {
-                document.getElementById("errName").style.color = "green";
-                count++;
-                
+                document.getElementById(nameOfErrId).style.color = "green";
             }
         });
-
-        const emailRe = /\S+\@\S+\.\S+/;
-        document.getElementById("eMail").addEventListener("change", function(event)
-        {
-            const check = emailRe.exec(event.target.value);
-            if (!check)
-            {
-                document.getElementById("errEmail").style.color = "red";
-            }
-            else
-            {
-                document.getElementById("errEmail").style.color = "green";
-                count++;
-                
-            }
-        });
-
-        const adressRe = /[a-zA-Z]+/;
-        document.getElementById("adress").addEventListener("change", function(event)
-        {
-
-            const check = adressRe.exec(event.target.value);
-            if (!check)
-            {
-                document.getElementById("errAdress").style.color = "red";
-            }
-            else
-            {
-                document.getElementById("errAdress").style.color = "green";
-                count++;
-                
-            }
-        });
-
-        const postRe = /\d{5}/;
-        document.getElementById("postNummer").addEventListener("change", function(event)
-        {
-            const check = postRe.exec(event.target.value);
-            if (!check)
-            {
-                document.getElementById("errPost").style.color = "red";
-            }
-            else
-            {
-                document.getElementById("errPost").style.color = "green";
-                count++;
-                
-            }
-        });
-
-        const areaRe = /[a-zA-Z]+/;
-        document.getElementById("area").addEventListener("change", function(event)
-        {
-            const check = areaRe.exec(event.target.value);
-            if (!check)
-            {
-                document.getElementById("errArea").style.color = "red";
-            }
-            else
-            {
-                document.getElementById("errArea").style.color = "green";
-                count++;
-                
-            }
-        });
-
-        document.getElementById("avresa").addEventListener("change", function()
-        {
-            const avresa = new Date(intForm.avresa.value);
-            const hemresa = new Date(intForm.hemresa.value);
-        
-            if (avresa > hemresa || avresa == 0 || hemresa == 0)
-            {
-                document.getElementById("errDate").style.color = "red";
-            }
-            else
-            {
-                document.getElementById("errDate").style.color = "green";
-                count++;
-                
-            }
-
-        });
-
-        document.getElementById("hemresa").addEventListener("change", function()
-        {
-            const avresa = new Date(intForm.avresa.value);
-            const hemresa = new Date(intForm.hemresa.value);
-        
-            if (avresa > hemresa)
-            {
-                document.getElementById("errDate").style.color = "red";
-            }
-            else
-            {
-                document.getElementById("errDate").style.color = "green";
-                count++;
-                
-            }            
-            if (count >= 7)
-            {
-            checkButton.removeAttribute("disabled");
-            }
-
-        });
-
     }
-    testInfo();
+
+    function testDate(nameofId,nameOfErrId)
+    {
+        document.getElementById(nameofId).addEventListener("change", function()
+        {
+            const avresa = new Date(intForm.avresa.value);
+            const hemresa = new Date(intForm.hemresa.value);
+        
+            if (avresa > hemresa || avresa == "Invalid Date" || hemresa == "Invalid Date")
+            {
+                document.getElementById(nameOfErrId).style.color = "red";
+            }
+            else
+            {
+                document.getElementById(nameOfErrId).style.color = "green";
+            }    
+        });
+    }
+
+
+    testInput("fullName",/[a-zA-Z]+\s[a-zA-Z]+/,"errName");
+    testInput("eMail",/\S+\@\S+\.\S+/,"errEmail");
+    testInput("adress",/[a-zA-Z]+/,"errAdress");
+    testInput("postNummer",/\d{5}/,"errPost");
+    testInput("area",/[a-zA-Z]+/,"errArea");
+    testDate("avresa","errDate");
+    testDate("hemresa","errDate");
+
+    const testInputData = [{field: "fullName", regex: /[a-zA-Z]$/, error: "errName"}, 
+    {field:"eMail",regex: /\S+\@\S+\.\S+/, error: "errEmail"},
+    {field:"adress",regex: /[a-zA-Z]+/,error:"errAdress"},
+    {field:"postNummer",regex:/\d{5}/,error:"errPost"},
+    {field:"area",regex:/[a-zA-Z]+/,error:"errArea"}];
+    const results = testInputData.map(test => testInput(test.field, test.regex, test.error));
+    const noErrors = results.filter(result => result === true).length === testInputData.length;
+
+    console.log(noErrors);
+
+}
+
         
     
-}
+
