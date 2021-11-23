@@ -266,7 +266,7 @@ function intelligentForm()
     const checkButton = document.createElement("button");
     checkButton.setAttribute("type","submit");
     checkButton.setAttribute("id","testButton");
-    // checkButton.setAttribute("disabled","true");
+    checkButton.setAttribute("disabled","true");
     checkButton.textContent = "Skicka in!";
 
     const lb = document.createElement("br");
@@ -350,6 +350,9 @@ function intelligentForm()
     errorMessages.appendChild(errorDate);
 
     
+    function troll()
+    {
+    let count = 0
     function testInput(nameOfId, regEx, nameOfErrId)
     {
             document.getElementById(nameOfId).addEventListener("change",function(event)
@@ -358,11 +361,18 @@ function intelligentForm()
             if (!check)
             {
                 document.getElementById(nameOfErrId).style.color = "red";
+                if (count >= 1)
+                {
+                    count--;
+                }
+
             }
             if (check)
             {
                 document.getElementById(nameOfErrId).style.color = "green";
+                count++
             }
+
         });
     }
 
@@ -373,18 +383,30 @@ function intelligentForm()
             const avresa = new Date(intForm.avresa.value);
             const hemresa = new Date(intForm.hemresa.value);
         
-            if (avresa > hemresa || avresa == "Invalid Date" || hemresa == "Invalid Date")
+            if (avresa > hemresa ||(avresa == "Invalid Date" || hemresa == "Invalid Date"))
             {
                 document.getElementById(nameOfErrId).style.color = "red";
+                if (count >= 1 && count != 4)
+                {
+                    count--;
+                }
             }
-            else
+            if (avresa < hemresa &&(!(avresa == "Invalid Date" || hemresa == "Invalid Date")))
             {
                 document.getElementById(nameOfErrId).style.color = "green";
-            }    
+                count++
+            }
+            
+            if(count >= 5)
+            {
+                checkButton.removeAttribute("disabled");
+            }
+            if(count <= 4)
+            {
+                checkButton.setAttribute("disabled","true");
+            }
         });
     }
-
-
     testInput("fullName",/[a-zA-Z]+\s[a-zA-Z]+/,"errName");
     testInput("eMail",/\S+\@\S+\.\S+/,"errEmail");
     testInput("adress",/[a-zA-Z]+/,"errAdress");
@@ -392,19 +414,122 @@ function intelligentForm()
     testInput("area",/[a-zA-Z]+/,"errArea");
     testDate("avresa","errDate");
     testDate("hemresa","errDate");
+}
+troll();
 
-    const testInputData = [{field: "fullName", regex: /[a-zA-Z]$/, error: "errName"}, 
-    {field:"eMail",regex: /\S+\@\S+\.\S+/, error: "errEmail"},
-    {field:"adress",regex: /[a-zA-Z]+/,error:"errAdress"},
-    {field:"postNummer",regex:/\d{5}/,error:"errPost"},
-    {field:"area",regex:/[a-zA-Z]+/,error:"errArea"}];
-    const results = testInputData.map(test => testInput(test.field, test.regex, test.error));
-    const noErrors = results.filter(result => result === true).length === testInputData.length;
+    // const testInputData = [{field: "fullName", regex: /[a-zA-Z]$/, error: "errName"}, 
+    // {field:"eMail",regex: /\S+\@\S+\.\S+/, error: "errEmail"},
+    // {field:"adress",regex: /[a-zA-Z]+/,error:"errAdress"},
+    // {field:"postNummer",regex:/\d{5}/,error:"errPost"},
+    // {field:"area",regex:/[a-zA-Z]+/,error:"errArea"}];
+    // const results = testInputData.map(test => testInput(test.field, test.regex, test.error));
+    // const noErrors = results.filter(result => result === true).length === testInputData.length;
 
-    console.log(noErrors);
+    // console.log(noErrors);
 
 }
 
+function klasser()
+{
+    document.body.removeChild(wrapper);
+
+    createDiv();
+    class Person{
+        constructor(namn, ålder, ort)
+        {
+            this.namn = namn;
+            this.ålder = ålder;
+            this.ort = ort;
+        }
+        age = function()
+        {
+            const beskrivning = document.createElement("p");
+            beskrivning.textContent = `${this.namn} är ${this.ålder} år gammal.`;
+            wrapper.appendChild(beskrivning);
+        }
+        boende = function()
+        {
+            const boende = document.createElement("p");
+            boende.textContent = `${this.namn} bor i ${this.ort}.`;
+            wrapper.appendChild(boende);
+        }
+
+    }
+    class Student extends Person {
+        constructor(namn, ålder, ort, betyg, utbildning, lärare)
+        {
+            super(namn, ålder, ort);
+            this.betyg = betyg;
+            this.utbildning = utbildning;
+            this.lärare = lärare;
+        }
+        education = function()
+        {
+            const education = document.createElement("p");
+            education.textContent = `${this.namn} är ${this.ålder} gammal och bor i ${this.ort}. ${this.namn} studerar ${this.utbildning}.`;
+            wrapper.appendChild(education);
+        }
+        grade = function()
+        {
+            const grade = document.createElement("p");
+            grade.textContent = `${this.namn} har ${this.betyg} i betyg och har ${this.lärare} som lärare.`;
+            wrapper.appendChild(grade);
+        }
+    }
+    let Christopher = new Person("Christopher","29","Sävsjö");
+    Christopher.age();
+    Christopher.boende();
+
+    let Anna = new Student("Anna","26","Sävsjö","VG","Industridesign","Holger");
+    Anna.education();
+    Anna.grade();
+
+}
+
+
+function jquery()
+{
+    document.body.removeChild(wrapper);
+
+    createDiv();
+    
+    const ptagg = document.createElement("p");
+    ptagg.setAttribute("id","invisTagg");
+    ptagg.textContent = "Klicka på mig så försvinner jag";
+    
+    const ptagg2 = document.createElement("p");
+    ptagg2.setAttribute("id","colorTagg");
+    ptagg2.textContent = "Klicka på mig så byter jag färg";
+    
+    const ptagg3 = document.createElement("p");
+    ptagg3.setAttribute("id","hoverTagg");
+    ptagg3.textContent = "Håll musen över mig så byter jag bakgrundsfärg.";
+    
+    wrapper.appendChild(ptagg);
+    wrapper.appendChild(ptagg2);
+    wrapper.appendChild(ptagg3);
+
+
+    $(function(){
+        $("#invisTagg").click(function(){
+            $(this).hide();
+        });
         
+        $("#colorTagg").click(function(){
+            $(this).css("color","red");
+        });
+        
+        $("#hoverTagg").on({
+            mouseenter: function(){
+                $(this).css("background-color","lightgray");
+            },
+            mouseleave: function(){
+                $(this).css("background-color","white");
+            }
+            });
+        })
+     
+}
+
     
 
