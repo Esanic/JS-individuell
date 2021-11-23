@@ -40,3 +40,38 @@
 .label {
   margin: 0;
 }
+
+#menylista {
+  display: flex;
+  width: 20rem;
+  padding: 0;
+}
+
+#menyitem1,
+#menyitem2 {
+  list-style: none;
+  padding: 0 1rem;
+  background-color: red;
+  border-radius: 10px;
+  max-height: 1.2rem;
+  margin: 0 auto;
+}
+
+.undermeny {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  background-color: lightgreen;
+}
+
+.underli {
+  display: none;
+}
+
+#box {
+  margin-top: 5rem;
+  height: 100px;
+  width: 100px;
+  background-color: lightseagreen;
+  position: absolute;
+}

@@ -492,7 +492,7 @@ function jquery()
     document.body.removeChild(wrapper);
 
     createDiv();
-    
+
     const ptagg = document.createElement("p");
     ptagg.setAttribute("id","invisTagg");
     ptagg.textContent = "Klicka på mig så försvinner jag";
@@ -504,15 +504,54 @@ function jquery()
     const ptagg3 = document.createElement("p");
     ptagg3.setAttribute("id","hoverTagg");
     ptagg3.textContent = "Håll musen över mig så byter jag bakgrundsfärg.";
+
+    const meny = document.createElement("nav");
+    meny.setAttribute("id","menu");
+
+    const lista = document.createElement("ul");
+    lista.setAttribute("id","menylista");
+
+    const li1 = document.createElement("li");
+    li1.setAttribute("id","menyitem1");
+    li1.textContent="Meny-item 1";
+    const li2 = document.createElement("li");
+    li2.setAttribute("id","menyitem2");
+    li2.textContent="Meny-item 2";
+
+    const undermeny = document.createElement("ul");
+    undermeny.setAttribute("class","undermeny");
+
+
+    const underli1 = document.createElement("li");
+    underli1.setAttribute("class","underli");
+    underli1.textContent = "Under 1";
+
+    const underli2 = document.createElement("li");
+    underli2.setAttribute("class","underli");
+    underli2.textContent = "Under 2";
+
+    const box = document.createElement("div");
+    box.setAttribute("id","box");
+    box.textContent = "Klicka på mig!";
+
+
+
     
     wrapper.appendChild(ptagg);
     wrapper.appendChild(ptagg2);
     wrapper.appendChild(ptagg3);
-
+    wrapper.appendChild(meny);
+    meny.appendChild(lista);
+    lista.appendChild(li1);
+    lista.appendChild(li2);
+    li1.appendChild(undermeny);
+    undermeny.appendChild(underli1);
+    undermeny.appendChild(underli2);
+    wrapper.appendChild(box);
 
     $(function(){
         $("#invisTagg").click(function(){
-            $(this).hide();
+            $(this).hide("slow");
         });
         
         $("#colorTagg").click(function(){
@@ -528,6 +567,18 @@ function jquery()
             }
             });
         })
+
+        $("#menyitem1").hover(function(){
+            $(".underli").css("display","static");
+            $(".underli").fadeToggle("fast");
+        });
+
+        $("#box").click(function(){
+            var div = $("#box");
+            div.animate({left:"500px"}, "slow");
+            div.animate({left:"0px"},"slow");
+            // div.animate({top:"250px"});
+        });
      
 }
 
