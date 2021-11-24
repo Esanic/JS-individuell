@@ -534,6 +534,17 @@ function jquery()
     box.setAttribute("id","box");
     box.textContent = "Klicka på mig!";
 
+    const button1 = document.createElement("button");
+    button1.setAttribute("id","button1");
+    button1.textContent = "Klicka på mig så ändrar jag texten på paragrafen som byter färg";
+
+    const button2 = document.createElement("button");
+    button2.setAttribute("id","button2");
+    button2.textContent = "Klicka på mig så lägger jag till text på paragrafen som byter färg";
+
+    const linebreak = document.createElement("br");
+    linebreak.textContent = "<br>";
+
 
 
     
@@ -548,6 +559,10 @@ function jquery()
     undermeny.appendChild(underli1);
     undermeny.appendChild(underli2);
     wrapper.appendChild(box);
+    wrapper.appendChild(button1);
+    wrapper.append(linebreak.cloneNode());
+    wrapper.append(linebreak.cloneNode());
+    wrapper.appendChild(button2);
 
     $(function(){
         $("#invisTagg").click(function(){
@@ -575,10 +590,29 @@ function jquery()
 
         $("#box").click(function(){
             var div = $("#box");
-            div.animate({left:"500px"}, "slow");
-            div.animate({left:"0px"},"slow");
-            // div.animate({top:"250px"});
+            div.animate({left:"400px"}, 1000);
+            div.animate({left:"0px"},1000);
+            div.animate({left:"250px"},600);
+            div.animate({left:"0px"},600);
+            div.animate({left:"125px"},400);
+            div.animate({left:"0px"},400);
+            div.animate({left:"62.5px"},250);
+            div.animate({left:"0px"},250);
+            div.animate({left:"30px"},125);
+            div.animate({left:"0px"},125);
+            div.animate({left:"5px"},50);
+            div.animate({left:"0px"},50);
         });
+
+        $("#button1").click(function(){
+            $("#colorTagg").text("Nu bytte jag text :)");
+        });
+
+        $("#button2").click(function(){
+            $("#colorTagg").append(" Denna texten har lagts till.");
+        });
+
+
      
 }
 

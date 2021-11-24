@@ -69,9 +69,13 @@
 }
 
 #box {
-  margin-top: 5rem;
+  margin-top: 3rem;
   height: 100px;
   width: 100px;
   background-color: lightseagreen;
   position: absolute;
+}
+
+#button1 {
+  margin-top: 10rem;
 }
