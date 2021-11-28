@@ -218,6 +218,8 @@ function intelligentForm()
 
     createDiv();
 
+    
+
     const intelligentForm = document.createElement("form");
     intelligentForm.setAttribute("id","intForm");
     
@@ -251,17 +253,30 @@ function intelligentForm()
     area.setAttribute("id","area");
     area.setAttribute("placeholder","Ort");
 
+    var aktuellTid = new Date();
+
+    aktuellTimme = aktuellTid.getHours();
+    aktuellTimme = ("0"+aktuellTimme).slice(-2);
+
+    aktuellMinut = aktuellTid.getMinutes();
+    aktuellMinut = ("0"+aktuellMinut).slice(-2);
+
+    aktuellSekund = aktuellTid.getSeconds();
+    aktuellSekund = ("0"+aktuellSekund).slice(-2);
+
+    let aktuelltDatum = `${aktuellTid.getFullYear()}-${(aktuellTid.getMonth()+1)}-${aktuellTid.getDate()}T${aktuellTimme}:${aktuellMinut}:${aktuellSekund}`;
+
     const avresa = document.createElement("input");
-    avresa.setAttribute("type","date");
+    avresa.setAttribute("type","datetime-local");
     avresa.setAttribute("name","avresa");
     avresa.setAttribute("id","avresa");
-    avresa.setAttribute("placeholder","Tid för avresa");
+    avresa.setAttribute("min",aktuelltDatum);
 
     const hemresa = document.createElement("input");
-    hemresa.setAttribute("type","date");
+    hemresa.setAttribute("type","datetime-local");
     hemresa.setAttribute("name","hemresa");
     hemresa.setAttribute("id","hemresa");
-    hemresa.setAttribute("placeholder","Tid för hemresa");
+    hemresa.setAttribute("min",aktuelltDatum);
 
     const checkButton = document.createElement("button");
     checkButton.setAttribute("type","submit");
@@ -350,7 +365,7 @@ function intelligentForm()
     errorMessages.appendChild(errorDate);
 
     
-    function troll()
+    function formTest()
     {
     let count = 0
     function testInput(nameOfId, regEx, nameOfErrId)
@@ -415,7 +430,7 @@ function intelligentForm()
     testDate("avresa","errDate");
     testDate("hemresa","errDate");
 }
-troll();
+formTest();
 
     // const testInputData = [{field: "fullName", regex: /[a-zA-Z]$/, error: "errName"}, 
     // {field:"eMail",regex: /\S+\@\S+\.\S+/, error: "errEmail"},
